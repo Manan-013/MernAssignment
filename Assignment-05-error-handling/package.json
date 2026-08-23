@@ -1,0 +1,13 @@
+{
+  "name": "assignment-05-error-handling",
+  "version": "1.0.0",
+  "description": "Assignment 5 - Error Handling & Status Codes",
+  "main": "buggy_fixed.js",
+  "scripts": {
+    "start": "node buggy_fixed.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.5.3"
+  }
+}

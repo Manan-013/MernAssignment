@@ -1,0 +1,13 @@
+{
+  "name": "assignment-03-service-layer",
+  "version": "1.0.0",
+  "description": "Assignment 3 - MVC + Service Layer",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.5.3"
+  }
+}

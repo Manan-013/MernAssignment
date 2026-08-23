@@ -1,0 +1,14 @@
+{
+  "name": "assignment-02-joi-validation",
+  "version": "1.0.0",
+  "description": "Assignment 2 - Joi Validation Layer",
+  "main": "test.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "joi": "^17.13.3",
+    "mongoose": "^8.5.3"
+  }
+}
