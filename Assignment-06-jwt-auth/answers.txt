@@ -1,0 +1,16 @@
+Assignment 6 Answers
+
+1. DB me password ka hash pada hai. Login ke waqt user plain password bhejta hai. bcrypt.compare match kaise kar leta hai jab hash se wapas password nikal hi nahi sakte?
+Ans: bcrypt.compare database wale hash ko decrypt nahi karta. Vo plain password aur hash string me store kiye gaye salt (hash string ke starting me present hota hai) ko use karke naya hash generate karta hai. Agar naya hash aur saved hash identical matching properties ke hain toh password correct hai.
+
+2. Service me bhi bcrypt.hash() kar do (jab hook already kar raha hai) — kya hoga? Ye galti bahut log karte hain.
+Ans: Password double hash ho jayega. Pehle service level pe password hash hokar save commands ko pass hoga, fir pre-save hook use select check pass karke dobara hash kar dega. Isse login processing checking match fail ho jayegi kyunki saved hash bilkul dynamic (aur original values se mismatch) ho chuka hoga.
+
+3. JWT ka payload encrypted hota hai ya sirf encoded? Iska matlab kya — payload me kya cheezein kabhi nahi daalni chahiye?
+Ans: JWT ka payload standard setup me sirf Base64Url encoded hota hai, encrypted nahi. Matlab ise inspect/decode koi bhi kar sakta hai. Isliye sensitive information jaise credentials, bank cards data, password, keys, etc. payload me nahi daalne chahiye.
+
+4. httpOnly: true na lagayein to kaunsa attack possible ho jaata hai?
+Ans: XSS (Cross-Site Scripting) attack. Agar httpOnly true nahi hoga toh scripting systems document.cookie variables se cookies values steal kar sakte hain.
+
+5. Logout me cookie hata di. Kya wo token ab mar gaya? Agar kisi ne wo token pehle copy kar liya ho to?
+Ans: Nahi, token server side check validation databases dependencies use nahi karta isliye cookie delete hone pe bhi token active rehta hai. Jisne copy kiya hai wo expiry duration tak authentication pass kar sakega access checks validation me.

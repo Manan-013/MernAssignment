@@ -4,39 +4,39 @@ const reviewSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: [true, "Title is required and cannot be empty"],
-      minlength: [3, "Title must be at least 3 characters long"],
-      maxlength: [80, "Title cannot exceed 80 characters"],
+      required: [true, "title is required"],
+      minlength: [3, "title must be at least 3 characters"],
+      maxlength: [80, "title cannot exceed 80 characters"],
       trim: true,
     },
     comment: {
       type: String,
-      required: [true, "Comment is required and cannot be empty"],
-      minlength: [10, "Comment must be at least 10 characters long"],
-      maxlength: [500, "Comment cannot exceed 500 characters"],
+      required: [true, "comment is required"],
+      minlength: [10, "comment must be at least 10 characters"],
+      maxlength: [500, "comment cannot exceed 500 characters"],
       trim: true,
       validate: {
         validator: function (v) {
           return v && v.trim().length > 0;
         },
-        message: "Comment cannot be empty or consist only of whitespace",
+        message: "comment cannot be empty spaces",
       },
     },
     rating: {
       type: Number,
-      required: [true, "Rating is required"],
-      min: [1, "Rating must be between 1 and 5"],
-      max: [5, "Rating must be between 1 and 5"],
+      required: [true, "rating is required"],
+      min: [1, "rating must be between 1 and 5"],
+      max: [5, "rating must be between 1 and 5"],
       validate: {
         validator: Number.isInteger,
-        message: "Rating must be a whole number (decimal values like {VALUE} are not allowed)",
+        message: "rating must be an integer",
       },
     },
     reviewerName: {
       type: String,
-      required: [true, "Reviewer name is required"],
-      minlength: [2, "Reviewer name must be at least 2 characters long"],
-      maxlength: [50, "Reviewer name cannot exceed 50 characters"],
+      required: [true, "reviewerName is required"],
+      minlength: [2, "reviewerName must be at least 2 characters"],
+      maxlength: [50, "reviewerName cannot exceed 50 characters"],
       trim: true,
     },
     status: {
@@ -54,7 +54,7 @@ const reviewSchema = new mongoose.Schema(
     helpfulCount: {
       type: Number,
       default: 0,
-      min: [0, "Helpful count cannot be negative"],
+      min: [0, "helpfulCount cannot be negative"],
     },
   },
   {
@@ -62,6 +62,4 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
-const ReviewModel = mongoose.model("review", reviewSchema);
-
-module.exports = ReviewModel;
+module.exports = mongoose.model("review", reviewSchema);

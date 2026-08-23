@@ -1,0 +1,15 @@
+Assignment 2 Answers
+
+1. Mongoose me validation hai hi — Joi ki alag se kya zaroorat? Do solid reason likho.
+Ans: 
+- Joi validation request receive hote hi (controller pe) check ho jaata hai. Agar request data galat hai toh database call hone se pehle hi reject ho jata hai, jisse database pe load nahi padta.
+- Ek hi DB model ke liye dynamic API validations lagane me help karta hai (like fields update ke time optional ho jati hain, par creation ke time required hoti hain). Mongoose schema level validation standard default set karta hai par dynamic options bypass nahi kar pata easily.
+
+2. ?limit=5 bhejne pe req.query.limit string aati hai ya number? Kyun?
+Ans: Number aati hai. Kyunki humne Joi me limit validation configuration (Joi.number()) set ki hai, aur Joi auto-coercion run karke string "5" ko number 5 me switch kar deta hai.
+
+3. stripUnknown: true na lagayein to {"status": "approved"} bhejne pe kya hoga?
+Ans: Agar ye setting off hogi, toh request parameter me jo fields schema me defined nahi hain wo bypass ho jayengi. Server direct mass assignment (create/update) check block run karega aur database variables tamper (compromise) ho sakte hain (like user direct status update approved bhej dega).
+
+4. Ek user {"rating": 6, "title": "x"} bhejta hai — dono galat hain. Kya user ko dono errors ek saath milenge? Kaunsi Joi setting decide karti hai?
+Ans: Haan, dono errors ek sath milenge. Ye abortEarly: false setting control karti hai.

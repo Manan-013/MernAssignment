@@ -1,8 +1,5 @@
 const ReviewModel = require("../model/reviewModel");
 
-/**
- * Creates a new review.
- */
 async function createReview(data) {
   const { title, comment, rating, reviewerName } = data;
 
@@ -21,9 +18,6 @@ async function createReview(data) {
   });
 }
 
-/**
- * Gets reviews with filters, pagination, and sorting.
- */
 async function getReviews(queryParams = {}) {
   const { status, minRating, maxRating, page = 1, limit = 10, sortBy } = queryParams;
 
@@ -67,9 +61,6 @@ async function getReviews(queryParams = {}) {
   };
 }
 
-/**
- * Gets a single review by ID.
- */
 async function getSingleReview(id) {
   const review = await ReviewModel.findById(id);
   if (!review) {
@@ -80,9 +71,6 @@ async function getSingleReview(id) {
   return review;
 }
 
-/**
- * Updates a review using document .save() to trigger model-level validators/hooks.
- */
 async function updateReview(id, updateData) {
   const review = await ReviewModel.findById(id);
   if (!review) {
@@ -91,7 +79,6 @@ async function updateReview(id, updateData) {
     throw error;
   }
 
-  // Assign only valid updating fields
   Object.keys(updateData).forEach((key) => {
     review[key] = updateData[key];
   });
@@ -99,9 +86,6 @@ async function updateReview(id, updateData) {
   return await review.save();
 }
 
-/**
- * Deletes a review using findByIdAndDelete.
- */
 async function deleteReview(id) {
   const deletedReview = await ReviewModel.findByIdAndDelete(id);
   if (!deletedReview) {
@@ -112,9 +96,6 @@ async function deleteReview(id) {
   return deletedReview;
 }
 
-/**
- * Bonus: Approves a review.
- */
 async function approveReview(id) {
   const review = await ReviewModel.findById(id);
   if (!review) {

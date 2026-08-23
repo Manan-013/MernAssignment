@@ -3,8 +3,8 @@ const validationMiddleware = (schema, source = "body") => {
     const dataToValidate = req[source] || {};
 
     const { value, error } = schema.validate(dataToValidate, {
-      abortEarly: false, // validate all fields before returning errors
-      stripUnknown: true, // strip out extra fields to prevent mass assignment bugs
+      abortEarly: false,
+      stripUnknown: true,
     });
 
     if (error) {
@@ -16,7 +16,6 @@ const validationMiddleware = (schema, source = "body") => {
       });
     }
 
-    // Save the sanitized/converted value back to req (important for defaults and type conversion!)
     req[source] = value;
     next();
   };

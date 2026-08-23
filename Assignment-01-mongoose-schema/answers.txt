@@ -1,0 +1,10 @@
+Assignment 1 Answers
+
+1. Frontend pe already validation laga di hai. Phir schema me dobara kyun?
+Ans: Frontend validation user experience ke liye hoti hai par use easily bypass kiya ja sakta hai (like using Postman, curl, ya simple scripts). Database level validation final check hai jo system ke security aur data consistency ko maintain rakhti hai, chahe request bypass karke hi kyu na aaye.
+
+2. trim: true na lagao to " Rahul " aur "Rahul" ko DB alag maanega ya same?
+Ans: DB dono ko alag (different) manega kyunki spaces ke sath check exact matches pe fail ho jayega.
+
+3. default: "pending" aur required: true — dono ek saath lagana theek hai kya? Kya hoga agar dono laga do?
+Ans: Dono ek sath lagana redundant hai. Agar user value nahi bhejega toh default automatically "pending" set kar dega, isliye required validation trigger hi nahi hogi.

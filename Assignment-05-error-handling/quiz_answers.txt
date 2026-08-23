@@ -1,0 +1,52 @@
+Assignment 5 Quiz & Answers
+
+Part C: buggy.js 5 Galtiyan
+
+1. app.use(errorHandler) routes se pehle mounted tha. 
+Kya hoga: Error handling code execute hi nahi ho payega jab routes pe error aayega. Express routes compilation skip kar dega.
+Fix: Ise router paths ke baad end me specify kiya.
+
+2. getReview controller async tha par no try/catch.
+Kya hoga: Agar mongo call fail ho ya invalid id parameter pass karein toh error catch nahi hoga aur backend app crash ho sakti hai.
+Fix: Try/catch block add kiya aur error next(err) ke through pass kiya.
+
+3. res.status(200).json({ success: false, message: "not found" })
+Kya hoga: Resource not found check pe 200 code return ho raha tha.
+Fix: Status code change kiya to 404.
+
+4. Missing return inside conditional check.
+Kya hoga: res.status().json() send karne ke baad code niche run hota rahega aur dubara res.json(review) call karega, jisse headers already sent runtime error aayega.
+Fix: added 'return' statement inside if(!review) block.
+
+5. app.use((err, req, res) => { ... }) had only 3 parameters.
+Kya hoga: Express is function ko error handler na manke standard router middleware ki tarah treat karega (Express functions count arity properties dynamically inspect karta hai).
+Fix: exactly 4 parameters (err, req, res, next) define kiye handler signature me.
+
+---
+
+Part D: Status Code Quiz
+
+1. Naya review ban gaya -> 201
+2. rating: 15 bheja -> 400
+3. Token bheja hi nahi -> 401
+4. Token sahi hai par role user hai, delete admin-only hai -> 403
+5. /getSingleReview/<id jo exist nahi karti> -> 404
+6. Wahi email se dobara register -> 409
+7. Search me kuch nahi mila -> 200
+8. Mongoose connection tut gaya -> 500 / 503
+
+---
+
+Soch ke batao
+
+1. 401 aur 403 me fark ek line me. Kaunsa "login karne se theek ho jaayega"?
+Ans: 401 Unauthorized ka matlab hai identity invalid ya unknown hai (login is required), jabki 403 Forbidden ka matlab hai role defined hai par action parameters permissions blocked hain. 401 login karne se fix ho jayega.
+
+2. Search me kuch na mile to 404 kyun galat hai?
+Ans: Search router path aur parameters correct processing run hue hain. Empty data matches valid success state (like empty array []) return karti hai, koi server resource missing nahi hai.
+
+3. Ye kyun galat hai: res.status(200).json({ success: false, message: "Product not found" })
+Ans: Pehli baat network status success parameter 200 show karta hai aur response body error message deti hai (telemetry tools confuse ho jayenge). Dusri baat API standard rules bypass karta hai.
+
+4. Error middleware me 4 parameter kyun likhte hain jab next use hi nahi hota?
+Ans: Express internal parameter matching count (arities) evaluate karta hai. Exactly 4 parameters hone pe hi use global error pipeline register milta hai.

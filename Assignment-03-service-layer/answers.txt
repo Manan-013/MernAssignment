@@ -1,0 +1,10 @@
+Assignment 3 Answers
+
+1. Kal ko tumhe ek CRON job likhni hai jo har raat purane review delete kare. Original code (sab kuch route me) se wo logic reuse kar paate? Kyun nahi?
+Ans: Nahi kar paate. Kyunki original code me DB logic HTTP handlers ke andar hi likha hua tha. CRON job CLI ya background lifecycle se chalti hai jahan Express ke req aur res objects exists nahi karte. Service layer alag karne se hum bina Express routes ke direct service functions ko run kar sakte hain.
+
+2. Service me res.status(400).send() likh doge to kya problem hogi?
+Ans: Service layer directly HTTP transport configuration (Express) se tightly couple ho jayegi. Kal ko agar server framework change karna pade (like Fastify ya NestJS) ya serverless functions, ya CLI scripts run karni hon toh database service block crash kar jayega. Plus, code test karna complicated ho jayega.
+
+3. Duplicate review wala check 400 deta hai. Tumhe kya lagta hai — 400 sahi hai ya 409 ? Apna jawab kyun ke saath likho.
+Ans: Hame lagta hai ki 409 (Conflict) code jyada sahi hai. 400 tab dete hain jab format ya query structure invalid ho. But yahan request parameters validate pass ho gaye hain par server database state (duplicate item restriction) ke sath conflict aane ki vajah se block hua hai.

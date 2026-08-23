@@ -6,7 +6,7 @@ const staffSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "Name is required"],
-      minlength: [2, "Name must be at least 2 characters long"],
+      minlength: [2, "Name must be at least 2 characters"],
       maxlength: [50, "Name cannot exceed 50 characters"],
     },
     email: {
@@ -19,7 +19,7 @@ const staffSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      minlength: [6, "Password must be at least 6 characters long"],
+      minlength: [6, "Password must be at least 6 characters"],
     },
     department: {
       type: String,
@@ -35,7 +35,6 @@ const staffSchema = new mongoose.Schema(
   }
 );
 
-// Pre-save hook to hash password before storing it
 staffSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
@@ -48,6 +47,4 @@ staffSchema.pre("save", async function (next) {
   }
 });
 
-const StaffModel = mongoose.model("staff", staffSchema);
-
-module.exports = StaffModel;
+module.exports = mongoose.model("staff", staffSchema);

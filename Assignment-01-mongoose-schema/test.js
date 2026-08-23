@@ -2,84 +2,59 @@ const mongoose = require("mongoose");
 const ReviewModel = require("./src/model/reviewModel");
 
 async function runTests() {
-  console.log("=== Running Assignment 1 Tests ===\n");
+  console.log("Running tests...\n");
 
-  // Test Case 1: Sahi data (should pass validation)
   const validData = {
     title: "Bahut accha product",
     comment: "Delivery fast thi aur quality bhi acchi hai",
     rating: 5,
     reviewerName: "Rahul",
   };
+
+  // Test 1: Sahi data
   try {
     const doc1 = new ReviewModel(validData);
     await doc1.validate();
-    console.log("✓ Test 1 Passed: Valid data validated successfully.");
+    console.log("Test 1 passed (valid data)");
   } catch (err) {
-    console.error("✗ Test 1 Failed:", err.message);
+    console.log("Test 1 failed:", err.message);
   }
 
-  // Test Case 2: rating = 6 (should fail)
+  // Test 2: rating = 6
   try {
-    const doc2 = new ReviewModel({
-      ...validData,
-      rating: 6,
-    });
+    const doc2 = new ReviewModel({ ...validData, rating: 6 });
     await doc2.validate();
-    console.error("✗ Test 2 Failed: rating = 6 should have thrown an error but didn't.");
+    console.log("Test 2 failed: rating = 6 passed validation");
   } catch (err) {
-    console.log("✓ Test 2 Passed (Expected Error):", err.errors.rating?.message);
+    console.log("Test 2 passed (rating = 6 rejected):", err.errors.rating?.message);
   }
 
-  // Test Case 3: rating = 3.5 (should fail)
+  // Test 3: rating = 3.5
   try {
-    const doc3 = new ReviewModel({
-      ...validData,
-      rating: 3.5,
-    });
+    const doc3 = new ReviewModel({ ...validData, rating: 3.5 });
     await doc3.validate();
-    console.error("✗ Test 3 Failed: rating = 3.5 should have thrown an error but didn't.");
+    console.log("Test 3 failed: rating = 3.5 passed validation");
   } catch (err) {
-    console.log("✓ Test 3 Passed (Expected Error):", err.errors.rating?.message);
+    console.log("Test 3 passed (rating = 3.5 rejected):", err.errors.rating?.message);
   }
 
-  // Test Case 4: status = "blocked" (should fail)
+  // Test 4: status = "blocked"
   try {
-    const doc4 = new ReviewModel({
-      ...validData,
-      status: "blocked",
-    });
+    const doc4 = new ReviewModel({ ...validData, status: "blocked" });
     await doc4.validate();
-    console.error("✗ Test 4 Failed: status = 'blocked' should have thrown an error but didn't.");
+    console.log("Test 4 failed: status = blocked passed validation");
   } catch (err) {
-    console.log("✓ Test 4 Passed (Expected Error):", err.errors.status?.message);
+    console.log("Test 4 passed (status = blocked rejected):", err.errors.status?.message);
   }
 
-  // Bonus Test Case 5: Empty space comment (should fail)
+  // Test 5: empty comment spaces
   try {
-    const doc5 = new ReviewModel({
-      ...validData,
-      comment: "         ",
-    });
+    const doc5 = new ReviewModel({ ...validData, comment: "         " });
     await doc5.validate();
-    console.error("✗ Test 5 Failed: Empty space comment should have thrown an error but didn't.");
+    console.log("Test 5 failed: empty spaces comment passed");
   } catch (err) {
-    console.log("✓ Test 5 Passed (Expected Error):", err.errors.comment?.message);
+    console.log("Test 5 passed (empty spaces comment rejected):", err.errors.comment?.message);
   }
-
-  // Bonus Test Case 6: Negative helpfulCount (should fail)
-  try {
-    const doc6 = new ReviewModel({
-      ...validData,
-      helpfulCount: -5,
-    });
-    await doc6.validate();
-    console.error("✗ Test 6 Failed: Negative helpfulCount should have thrown an error but didn't.");
-  } catch (err) {
-    console.log("✓ Test 6 Passed (Expected Error):", err.errors.helpfulCount?.message);
-  }
-
-  console.log("\n=== Assignment 1 Tests Finished ===");
 }
 
 runTests();

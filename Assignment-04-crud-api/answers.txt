@@ -1,0 +1,14 @@
+Assignment 4 Answers
+
+1. PUT use karke {"rating": 4} bhejo — title aur comment ka kya hoga? PATCH me kya hoga? Ek line me fark likho.
+Ans: PUT request se poora document replace/overwrite ho jayega toh title aur comment elements remove/null ho jayenge (agar fallback setup na ho). PATCH use karne se sirf target property (rating) modify hogi aur baaki fields unaffected rahengi.
+Fark: PUT complete resource replace karta hai, jabki PATCH partial properties change karta hai.
+
+2. Create pe 201 kyun, 200 kyun nahi? Frontend ko isse kya fayda?
+Ans: 201 explicitly specify karta hai ki request successfully process ho gayi hai aur database me naya entity create ho gaya hai. Frontend checks status code se simple success handling UI refresh sequences trigger kar sakta hai.
+
+3. Delete safal hone pe deleted review wapas bhejna chahiye ya nahi? Apni raay do.
+Ans: Haan, deleted parameters object return karna correct practice hai taaki client side frontend variables state (like redux ya local state filter logic) easily coordinate kiye ja sakein bin extra call setup ke.
+
+4. findByIdAndUpdate me validators by default chalte hain ya nahi? Nahi chalte to chalane ke liye kya likhna padta hai?
+Ans: default option me findByIdAndUpdate validators check bypass karta hai. Inhe manually active karne ke liye config options properties set validation rules specify karna padta hai: { runValidators: true }.
